@@ -1,6 +1,10 @@
+---
+trigger: always_on
+---
+
 # Design Conventions Rule
 
-Always follow the design conventions specified in the `DESIGN.md` file located in the project root.
+Always follow the design conventions specified in the `DESIGN.md` file located in the apps/client project root.
 
 Before writing any code, review the DESIGN.md file to understand:
 - UI/UX standards
