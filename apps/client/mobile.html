@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>The Fluid Studio | Mobile Board</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "error": "#ba1a1a",
+              "surface-container-low": "#eff4ff",
+              "secondary-fixed-dim": "#b9c7e0",
+              "error-container": "#ffdad6",
+              "on-tertiary-fixed-variant": "#004c6e",
+              "on-tertiary-container": "#b8e0ff",
+              "on-surface": "#0b1c30",
+              "secondary-container": "#d5e3fd",
+              "on-primary-fixed": "#0f0069",
+              "on-background": "#0b1c30",
+              "on-error": "#ffffff",
+              "on-primary-fixed-variant": "#3323cc",
+              "outline": "#777587",
+              "primary-fixed-dim": "#c3c0ff",
+              "surface-container-highest": "#d3e4fe",
+              "on-error-container": "#93000a",
+              "tertiary-fixed": "#c9e6ff",
+              "outline-variant": "#c7c4d8",
+              "surface-dim": "#cbdbf5",
+              "primary-fixed": "#e2dfff",
+              "inverse-primary": "#c3c0ff",
+              "secondary": "#515f74",
+              "secondary-fixed": "#d5e3fd",
+              "tertiary-container": "#006693",
+              "on-secondary-fixed-variant": "#3a485c",
+              "background": "#f8f9ff",
+              "on-primary": "#ffffff",
+              "tertiary-fixed-dim": "#89ceff",
+              "on-surface-variant": "#464555",
+              "on-secondary": "#ffffff",
+              "on-secondary-fixed": "#0d1c2f",
+              "surface-variant": "#d3e4fe",
+              "primary": "#3525cd",
+              "on-primary-container": "#dad7ff",
+              "on-tertiary": "#ffffff",
+              "primary-container": "#4f46e5",
+              "surface-bright": "#f8f9ff",
+              "inverse-on-surface": "#eaf1ff",
+              "surface-container-lowest": "#ffffff",
+              "surface-container-high": "#dce9ff",
+              "on-tertiary-fixed": "#001e2f",
+              "on-secondary-container": "#57657b",
+              "inverse-surface": "#213145",
+              "tertiary": "#004d70",
+              "surface-tint": "#4d44e3",
+              "surface-container": "#e5eeff",
+              "surface": "#f8f9ff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style type="text/tailwindcss">
+    @layer utilities {
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .snap-x-mandatory { scroll-snap-type: x mandatory; }
+        .snap-start { scroll-snap-align: start; }
+        .glass-nav { @apply bg-white/80 backdrop-blur-xl border-t border-slate-100; }
+        .pulse-gradient { background: linear-gradient(135deg, #3525cd 0%, #4f46e5 100%); }
+    }
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        vertical-align: middle;
+    }
+</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body text-on-background selection:bg-primary-fixed selection:text-on-primary-fixed overflow-hidden h-screen flex flex-col">
+<header class="flex-none px-5 pt-8 pb-4 bg-background">
+<div class="flex justify-between items-center mb-2">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg pulse-gradient flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-lg" data-icon="dashboard">dashboard</span>
+</div>
+<h1 class="text-lg font-extrabold text-indigo-950 font-headline">Website Redesign</h1>
+</div>
+<img alt="User" class="w-8 h-8 rounded-full ring-2 ring-white" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAe-AMxlx_z8KU7Cs4uYFgNXOdSXLd4AZ8Y55a_sl29tDEeJfRcFS2aLNKjDHJEQwHnQ5UhyP5rrhczWzvQ-bylVV9CcBfNqYOSxeJ2_WNCa6mDjSS2LJjTyFABK_AmNCL2hp0YW3QZvqeyhHavE7MzNehZzY0lbY8RWVB4mu1iqxAuVIeR-ecFmtVY9TV4gsfcDYRh-rTi5gZxK0Vz_yzQVu_L044eHo6sHFgqfwTksNFoMkkmlJ0AJ_lS3F1V9qIgMp28qRxWFo"/>
+</div>
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-2">
+<span class="shrink-0 flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span> Live
+        </span>
+<div class="flex -space-x-2 mr-2">
+<img class="w-6 h-6 rounded-full border-2 border-background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrvWajzhSm5BmOraPvI34mev_fPilcJxtNM_xQk2DAwaQlN3ZuHGmCvK21vTnIQqmlgBlUFSpVu8wu0BrCmp_nEzeR2HaLCj-_HMMJ7XXlArXD8XTV151b964kxzd_WAAsfHW0l5sFJtW-Izxt1qxHJ8X4hqli1I5LPk1tXHsnm1vxcauVhGzBLJNQpMZwfzZ20G8uDm1-rvH_omdMXDBHIf_dO8UOiE1CcBy2IJCf8LgFLIxoMa6Sfcq_jbt81RTruJD_zlIu5ow"/>
+<img class="w-6 h-6 rounded-full border-2 border-background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtoPhblzDbCUBtQMlb9qi0FqH7e80fdBEJbdVGOg3j5FFrTT4GBoQTmh4pRYtpox66poV8Y_5DYtNKwsFIuYsJkT6QXbTf2_C7kivORuiGHdMlTPW4nU9QY0kJF1d3sn9y8Cs9DrvsFg-FSVHh8THr_6ZBXFafH4BVsUOrSdZ8JuBUMM9flMKmUjdBx7HrQz61CEdtVFmT1cz7lFWJIYBg4qBnEIMPAuFrv6rtBEz-cEbWSA4Nlut8bzWNpJAb7aLZTEPjQKHj9HI"/>
+<div class="w-6 h-6 rounded-full border-2 border-background bg-surface-container-high flex items-center justify-center text-[8px] font-bold">+4</div>
+</div>
+<button class="shrink-0 p-1.5 rounded-lg bg-surface-container-high">
+<span class="material-symbols-outlined text-lg" data-icon="filter_list">filter_list</span>
+</button>
+<button class="shrink-0 p-1.5 rounded-lg bg-surface-container-high">
+<span class="material-symbols-outlined text-lg" data-icon="search">search</span>
+</button>
+</div>
+</header>
+<main class="flex-1 overflow-x-auto no-scrollbar flex snap-x-mandatory bg-background">
+<section class="w-screen flex-shrink-0 snap-start flex flex-col px-5">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<h3 class="font-headline font-bold text-lg">To Do</h3>
+<span class="bg-surface-container text-slate-500 px-2 py-0.5 rounded text-[10px] font-bold">3</span>
+</div>
+<button class="text-primary p-1"><span class="material-symbols-outlined">add</span></button>
+</div>
+<div class="flex-1 overflow-y-auto no-scrollbar space-y-4 pb-24">
+<div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+<div class="flex justify-between items-start mb-3">
+<span class="bg-error-container text-on-error-container text-[9px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full">High Priority</span>
+<span class="material-symbols-outlined text-slate-300 text-lg">more_horiz</span>
+</div>
+<h4 class="font-bold text-sm mb-2">Refine color palette for Dark Mode</h4>
+<p class="text-slate-500 text-[11px] mb-3">Ensure accessibility ratios pass WCAG AA standards.</p>
+<div class="flex justify-between items-center">
+<img class="w-6 h-6 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDU2XC3-7re7aN9y1ZgBwfFuJBU_da5Lew4OVc-PdPHrYHfv7PsFnOhlZTMRLZ6UUCVKlePdP4BuYXKGiKJPRKZJ47v-yrL4hQY1Zx7EFHQRPLUdrQ7744DaDSHw2MhP6YPRUX1PYQwNHVown-QMpmfPCNYurMkMnGXmU6r3MdhfY6RPEMko06WOHxrI9Zvclkh2ax3wJdCEjFVs1OW2gq2JVD_rWCQIIRXNmhaedOJ8q61yqtQNtMtTUle3Lu0G_izrD6EMSS8fiI"/>
+<div class="flex items-center gap-1 text-[10px] text-slate-400 font-medium">
+<span class="material-symbols-outlined text-sm">event</span> Oct 24
+                    </div>
+</div>
+</div>
+<div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+<div class="flex justify-between items-start mb-3">
+<span class="bg-secondary-container text-on-secondary-container text-[9px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full">Medium</span>
+</div>
+<h4 class="font-bold text-sm mb-3">SEO Audit for Home Page</h4>
+<div class="flex justify-between items-center">
+<img class="w-6 h-6 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhUU-k2RS2PhyckeJHsd8js3-Cod4p8faJHDbEAdtvaAyDve6e7IuK-jCXYD1U-T8jXuHANB7zSzsWte7-x5_bw7DHKDtPHXaPjkJcL5Fb4Zz7DxuPiWnG_Kw7ONQfGAHUbdeSbcUOdTqowuri-AVvLBYQhVu4FDl1eqzIsw-9u4CJE5viTIIm9NSgOfi8vHXwqTGJhnuiq_NkgS8uB6eX_HMnlea1GI4ClYUo-xyE5X6hwVm6F5Buy_AcAX165GNxhfodB882npg"/>
+<div class="flex items-center gap-1 text-[10px] text-slate-400 font-medium">
+<span class="material-symbols-outlined text-sm">event</span> Oct 28
+                    </div>
+</div>
+</div>
+</div>
+</section>
+<section class="w-screen flex-shrink-0 snap-start flex flex-col px-5">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<h3 class="font-headline font-bold text-lg">In Progress</h3>
+<span class="bg-primary/10 text-primary px-2 py-0.5 rounded text-[10px] font-bold">2</span>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto no-scrollbar space-y-4 pb-24">
+<div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+<img class="w-full h-24 object-cover rounded-xl mb-3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRvfwjRopqUm32y4lqV9a2babO0s45I29lB8ZYToL8jKOhh2xhw6vbPXOslzNNPSQZBwnjBLsAhxQPPgLyeW5dz6iwZRr9NzIbl2ktbL8-LA0J8WedKOSFBso3lJeZVoxl5W7nGpKIkzLdQph1Jf2w_mryR7II66Y4FtI_ClCiGKcScbugctUmrEMyU-WFhfUWt1TkpUPNWeYmmCLI7vSXmU-Rf1HwGc6mMwAAbXANkpxAfj8mKFwI27-Kff_bjfwrADdmlHgTiJo"/>
+<div class="mb-2"><span class="bg-tertiary-container text-on-tertiary-container text-[9px] font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider">Dev</span></div>
+<h4 class="font-bold text-sm mb-3">Component Library Architecture</h4>
+<div class="flex items-center gap-3 mb-3">
+<div class="flex-1 h-1 bg-slate-100 rounded-full overflow-hidden">
+<div class="bg-primary w-[65%] h-full"></div>
+</div>
+<span class="text-[9px] font-bold text-slate-500">65%</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex -space-x-1.5">
+<img class="w-6 h-6 rounded-full border-2 border-white" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9AbFPhuoV1LZ248sUh8QIlyljp0-NndZAZtpXZ-2EIHuq-kJa01DHRIYrtPnSgD4KsUUd-zgEGDkge0UOs52baRzfhlD-VgaXWszlM8cNCT3vMiNwQxnUpu-IU1MoJ9BhcxQ6mWJeZK6qSpLBBWIX5mEnJjeCoGICs4SNGbN-KvcsE8YmqeUv_dtiiWWzHES6d-pJDqhWDVBeTPlOvyr0uW5PAeA9jVAQqXZujRq904R7NG_TYTRyul-pAL4NtGwg85yrlTJHfME"/>
+<img class="w-6 h-6 rounded-full border-2 border-white" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4g7PRKskL9yK5ADyj9cwqxVQ5PJ4xkzmDo0irOgQxZ7iD39ua-RwpT4dS2b_BCYjN5uNqV5smN5xSoQ7ZceXruxsN584Im7LwfsR9Jdx5bTwjUZBT3ViFwpcS3aYpIwshcgw4Syn4SxvoTS-ork6hP_57DYry5z5kN67KZCbCHo0xYmFbdv9gAbNGXq6-u-KluYuY7U5vBIJugn8OWsqasga2Nz0AkratGZbJNyiAxu5zcZXVXSbyJGivfyagYTu6-dkEzqdlkiw"/>
+</div>
+<div class="flex gap-2 text-[10px] text-slate-400">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">chat_bubble</span> 8</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">attach_file</span> 3</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="w-screen flex-shrink-0 snap-start flex flex-col px-5">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<h3 class="font-headline font-bold text-lg">In Review</h3>
+<span class="bg-tertiary/10 text-tertiary px-2 py-0.5 rounded text-[10px] font-bold">1</span>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto no-scrollbar space-y-4 pb-24">
+<div class="bg-white p-4 rounded-2xl shadow-sm border-2 border-primary/20">
+<div class="flex justify-between items-start mb-3">
+<span class="bg-error-container text-on-error-container text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full">High</span>
+<span class="material-symbols-outlined text-primary text-lg">visibility</span>
+</div>
+<h4 class="font-bold text-sm mb-2">User Interview Summary Report</h4>
+<p class="text-slate-500 text-[11px] mb-3">Finalizing 25 customer sessions in Q3.</p>
+<div class="flex justify-between items-center">
+<img class="w-6 h-6 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAx38MdNKJyE7BtRyoAvv6RySgzb-kVMWOBbFTYUI5ei8TcGptAOZFsTuA021CwSTV1kJvnC4NbRXcnDofzz98z_1P1stOrjT-jDVz3A0RqvLRqA8GjjCCkQVGuLW2ckkHeZudqrLNPs2YjpTgRZNgLT246cqcxfZJHDEeirXfNKROmR3B6lzLArqOfbmu_35pUqqwXO-dlBW7XnCbhlpqXSU-1iaS06tWDnjwa_1x7rdL3xPl1voOHUQ1_LaZJeE3hQT0Q35o4iMM"/>
+<div class="flex items-center gap-1 text-[10px] text-error font-bold">
+<span class="material-symbols-outlined text-sm">history</span> Overdue
+                    </div>
+</div>
+</div>
+</div>
+</section>
+<section class="w-screen flex-shrink-0 snap-start flex flex-col px-5">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<h3 class="font-headline font-bold text-lg">Done</h3>
+<span class="bg-green-100 text-green-700 px-2 py-0.5 rounded text-[10px] font-bold">12</span>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto no-scrollbar space-y-4 pb-24">
+<div class="bg-white/60 p-4 rounded-2xl shadow-sm border border-slate-100 opacity-70">
+<div class="flex justify-between items-start mb-3">
+<span class="bg-slate-200 text-slate-500 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full">Low</span>
+<span class="material-symbols-outlined text-green-600 text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h4 class="font-bold text-sm mb-2 line-through text-slate-400">Domain name registration</h4>
+<div class="flex justify-between items-center">
+<img class="w-6 h-6 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDV72Ou-uw4W7nrJBT9cVF6dc4Z5peZYcTgBOdjKgQsKpADbNABkdUTniFIUSRfGUlvMTqt3zEsi54uMOOl5WFS7jQMD0n6jfGvvoOfxGH5mBQmlEoIfu6Et7Y9zkC0mDcL5p0rqYznxIg1MKkhEVGVQevU7Cs7jiEhhIMHH4Ny2faHhreHKoNrvZP_SF5leqctwrcujT0Ve3gJMoOjkvkSonvxUw6IkNUUWUGOd3zxZg9InDWyKTmSh1xGEpFoFwtJggNpYnlPJ5Y"/>
+<div class="text-[10px] text-slate-400 font-medium">Completed Oct 12</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<button class="fixed bottom-24 right-5 w-14 h-14 rounded-full pulse-gradient text-white shadow-xl shadow-primary/40 flex items-center justify-center active:scale-90 transition-transform z-50">
+<span class="material-symbols-outlined text-2xl" data-icon="add">add</span>
+</button>
+<nav class="fixed bottom-0 left-0 right-0 h-20 glass-nav flex items-center justify-around px-2 pb-5 z-50">
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">home</span>
+<span class="text-[10px] font-medium">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined font-bold" data-icon="view_kanban" style="font-variation-settings: 'FILL' 1;">view_kanban</span>
+<span class="text-[10px] font-bold">Projects</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="text-[10px] font-medium">Events</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="text-[10px] font-medium">Team</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-[10px] font-medium">Settings</span>
+</a>
+</nav>
+
+</body></html>
