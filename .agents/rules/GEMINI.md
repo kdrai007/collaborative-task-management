@@ -8,6 +8,8 @@ trigger: always_on
 Real-time collaborative task manager. Monorepo with Turborepo + pnpm.
 Frontend: React 19 + Vite. Backend: Fastify 5 + Socket.io. DB: MongoDB + Redis.
 
+* IMPORTANT: Never touch .env files
+
 ---
 
 ## Scoped Rules — Read the Right File First
