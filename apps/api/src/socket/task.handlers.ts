@@ -27,7 +27,7 @@ export function registerTaskHandlers(io: IO, socket: Soc): void {
         .sort({ order: -1 })
         .lean();
 
-      const order = last ? last.order + INITIAL_RANK : INITIAL_RANK;
+      const order = last ? midRank(last.order, null) : INITIAL_RANK;
 
       const task = await TaskModel.create({
         workspaceId: payload.workspaceId,

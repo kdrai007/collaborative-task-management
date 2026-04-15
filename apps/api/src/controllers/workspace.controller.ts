@@ -8,11 +8,11 @@
 import { z } from 'zod';
 import type { FastifyRequest, FastifyReply } from 'fastify';
 import { WorkspaceModel } from '../models/Workspace.js';
-import { ColumnModel }    from '../models/Column.js';
-import { TaskModel }      from '../models/Task.js';
-import { CommentModel }   from '../models/Comment.js';
-import { UserModel }      from '../models/User.js';
-import { INITIAL_RANK }   from '../lib/lexorank.js';
+import { ColumnModel } from '../models/Column.js';
+import { TaskModel } from '../models/Task.js';
+import { CommentModel } from '../models/Comment.js';
+import { UserModel } from '../models/User.js';
+import { INITIAL_RANK } from '../lib/lexorank.js';
 import type { WorkspaceRole } from '@repo/types';
 
 // ---------------------------------------------------------------------------
@@ -20,18 +20,21 @@ import type { WorkspaceRole } from '@repo/types';
 // ---------------------------------------------------------------------------
 
 const createSchema = z.object({
-  name:        z.string().min(1).max(80),
+  name: z.string().min(1).max(80),
   description: z.string().max(500).optional(),
 });
 
 const updateSchema = z.object({
-  name:        z.string().min(1).max(80).optional(),
+  name: z.string().min(1).max(80).optional(),
   description: z.string().max(500).optional(),
-});
+}).refine(
+  (data) => Object.keys(data).length > 0,
+  { message: 'At least one field must be provided' }
+);
 
 const addMemberSchema = z.object({
-  email: z.string().email(),
-  role:  z.enum(['admin', 'member', 'viewer']),
+  email: z.email(),
+  role: z.enum(['admin', 'member', 'viewer']),
 });
 
 // ---------------------------------------------------------------------------
@@ -43,18 +46,18 @@ export async function createWorkspace(req: FastifyRequest, rep: FastifyReply): P
   const body = createSchema.parse(req.body);
 
   const workspace = await WorkspaceModel.create({
-    name:        body.name,
+    name: body.name,
     description: body.description ?? '',
-    ownerId:     req.user.userId,
+    ownerId: req.user.userId,
     // Creator is automatically an admin member
     members: [{ userId: req.user.userId, role: 'admin', joinedAt: new Date() }],
   });
 
   // Seed three default columns with LexoRank spacing
   await ColumnModel.insertMany([
-    { workspaceId: workspace.id, title: 'To Do',       order: 'f' },
+    { workspaceId: workspace.id, title: 'To Do', order: 'f' },
     { workspaceId: workspace.id, title: 'In Progress', order: 'n' },
-    { workspaceId: workspace.id, title: 'Done',        order: 'u' },
+    { workspaceId: workspace.id, title: 'Done', order: 'u' },
   ]);
 
   await rep.status(201).send({ success: true, data: { workspace: workspace.toJSON() } });
@@ -97,8 +100,8 @@ export async function getWorkspace(req: FastifyRequest, rep: FastifyReply): Prom
     success: true,
     data: {
       workspace: { ...workspace, id: workspace._id.toString() },
-      columns:   columns.map((c) => ({ ...c, id: c._id.toString() })),
-      tasks:     tasks.map((t) => ({ ...t, id: t._id.toString() })),
+      columns: columns.map((c) => ({ ...c, id: c._id.toString() })),
+      tasks: tasks.map((t) => ({ ...t, id: t._id.toString() })),
     },
   });
 }
@@ -127,8 +130,7 @@ export async function deleteWorkspace(req: FastifyRequest, rep: FastifyReply): P
   const { workspaceId } = req.params as { workspaceId: string };
 
   // Cascade-delete all associated data
-  const columnIds = await ColumnModel.find({ workspaceId }).distinct('_id');
-  const taskIds   = await TaskModel.find({ workspaceId }).distinct('_id');
+  const taskIds = await TaskModel.find({ workspaceId }).distinct('_id');
 
   await Promise.all([
     CommentModel.deleteMany({ taskId: { $in: taskIds } }),
@@ -137,7 +139,6 @@ export async function deleteWorkspace(req: FastifyRequest, rep: FastifyReply): P
     WorkspaceModel.findByIdAndDelete(workspaceId),
   ]);
 
-  void columnIds; // suppress unused variable lint
   await rep.send({ success: true, data: null });
 }
 
@@ -169,8 +170,8 @@ export async function addMember(req: FastifyRequest, rep: FastifyReply): Promise
   }
 
   workspace.members.push({
-    userId:   invitee._id,
-    role:     body.role as WorkspaceRole,
+    userId: invitee._id,
+    role: body.role as WorkspaceRole,
     joinedAt: new Date(),
   });
   await workspace.save();

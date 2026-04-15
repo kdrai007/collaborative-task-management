@@ -10,10 +10,9 @@ import { z } from 'zod';
 import type { FastifyRequest, FastifyReply } from 'fastify';
 import { TaskModel }    from '../models/Task.js';
 import { CommentModel } from '../models/Comment.js';
-import { INITIAL_RANK } from '../lib/lexorank.js';
+import { INITIAL_RANK, midRank } from '../lib/lexorank.js';
 
 const createSchema = z.object({
-  workspaceId: z.string(),
   columnId:    z.string(),
   title:       z.string().min(1).max(200),
   description: z.string().max(5000).optional(),
@@ -43,7 +42,7 @@ export async function createTask(req: FastifyRequest, rep: FastifyReply): Promis
     .sort({ order: -1 })
     .lean();
 
-  const order = last ? last.order + INITIAL_RANK : INITIAL_RANK;
+  const order = last ? midRank(last.order, null) : INITIAL_RANK;
 
   const task = await TaskModel.create({
     workspaceId,

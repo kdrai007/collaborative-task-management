@@ -21,7 +21,9 @@ export async function connectDB(): Promise<void> {
     console.warn('[DB] MongoDB disconnected'),
   );
 
-  await mongoose.connect(config.mongoUri);
+  await mongoose.connect(config.mongoUri, {
+    dbName: 'test',
+  });
 }
 
 /**

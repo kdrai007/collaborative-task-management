@@ -7,7 +7,7 @@ import type { FastifyRequest, FastifyReply } from 'fastify';
 import { ColumnModel } from '../models/Column.js';
 import { TaskModel }   from '../models/Task.js';
 import { CommentModel } from '../models/Comment.js';
-import { INITIAL_RANK } from '../lib/lexorank.js';
+import { INITIAL_RANK, midRank } from '../lib/lexorank.js';
 
 const createSchema = z.object({
   title: z.string().min(1).max(80),
@@ -28,7 +28,7 @@ export async function createColumn(req: FastifyRequest, rep: FastifyReply): Prom
     .sort({ order: -1 })  // highest lex rank = last column
     .lean();
 
-  const order = last ? last.order + INITIAL_RANK : INITIAL_RANK;
+  const order = last ? midRank(last.order, null) : INITIAL_RANK;
 
   const column = await ColumnModel.create({ workspaceId, title: body.title, order });
   await rep.status(201).send({ success: true, data: { column: column.toJSON() } });

@@ -15,6 +15,7 @@ import { config } from '../config.js';
 import { registerTaskHandlers }   from './task.handlers.js';
 import { registerColumnHandlers } from './column.handlers.js';
 import { registerCursorHandlers } from './cursor.handlers.js';
+import { WorkspaceModel } from '../models/Workspace.js';
 
 /**
  * Create and configure the Socket.io server.
@@ -83,6 +84,16 @@ export function setupSocket(fastify: FastifyInstance): Server {
     // Join a workspace room — required before receiving workspace events
     socket.on('workspace:join', async (payload, ack) => {
       try {
+        const workspace = await WorkspaceModel.findById(payload.workspaceId).lean();
+        if (!workspace) {
+          ack({ success: false, message: 'Workspace not found' });
+          return;
+        }
+        const isMember = workspace.members.some((m) => m.userId.toString() === socket.data.userId);
+        if (!isMember) {
+          ack({ success: false, message: 'Not a workspace member' });
+          return;
+        }
         await socket.join(payload.workspaceId);
         ack({ success: true, data: undefined });
       } catch (err) {

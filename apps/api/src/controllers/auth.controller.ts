@@ -16,13 +16,13 @@ import { config } from '../config.js';
 // ---------------------------------------------------------------------------
 
 const registerSchema = z.object({
-  name:     z.string().min(2).max(50),
-  email:    z.string().email(),
+  name: z.string().min(2).max(50),
+  email: z.email(),
   password: z.string().min(8, 'Password must be at least 8 characters'),
 });
 
 const loginSchema = z.object({
-  email:    z.string().email(),
+  email: z.email(),
   password: z.string().min(1),
 });
 
@@ -32,10 +32,10 @@ const loginSchema = z.object({
 function setAuthCookie(rep: FastifyReply, token: string): void {
   rep.setCookie('token', token, {
     httpOnly: true,                                         // not accessible via JS
-    secure:   config.nodeEnv === 'production',             // HTTPS only in prod
+    secure: config.nodeEnv === 'production',             // HTTPS only in prod
     sameSite: 'strict',                                    // CSRF protection
-    path:     '/',
-    maxAge:   60 * 60 * 24 * 7,                           // 7 days in seconds
+    path: '/',
+    maxAge: 60 * 60 * 24 * 7,                           // 7 days in seconds
   });
 }
 
@@ -56,7 +56,7 @@ export async function register(req: FastifyRequest, rep: FastifyReply): Promise<
 
   // Hash password before persisting
   const hash = await bcrypt.hash(body.password, config.bcryptRounds);
-  const user  = await UserModel.create({ name: body.name, email: body.email, password: hash });
+  const user = await UserModel.create({ name: body.name, email: body.email, password: hash });
 
   // Sign token — payload is derived from the new user document
   const token = await rep.jwtSign({ userId: user.id as string, email: user.email });

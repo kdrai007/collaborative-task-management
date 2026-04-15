@@ -49,6 +49,7 @@ export function requireRole(minRole: WorkspaceRole) {
 
     if (ROLE_LEVEL[member.role] < ROLE_LEVEL[minRole]) {
       await rep.status(403).send({ success: false, message: 'Insufficient permissions' });
+      return;
     }
   };
 }
