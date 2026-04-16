@@ -80,7 +80,8 @@ function RouteError() {
 }
 
 // ---------------------------------------------------------------------------
-// Auth loader — runs before the dashboard renders.
+// Auth loader — runs before protected routes.
+// Redirects unauthenticated users to /login.
 // ---------------------------------------------------------------------------
 function makeAuthLoader(queryClient: QueryClient) {
   return async () => {
@@ -97,6 +98,26 @@ function makeAuthLoader(queryClient: QueryClient) {
 }
 
 // ---------------------------------------------------------------------------
+// Guest loader — runs before public auth routes (/, /login, /signup).
+// Redirects already-authenticated users straight to /dashboard.
+// ---------------------------------------------------------------------------
+function makeGuestLoader(queryClient: QueryClient) {
+  return async () => {
+    try {
+      const cached = queryClient.getQueryData<{ user: unknown }>(['me']);
+      if (cached?.user) return redirect('/dashboard');
+      const data = await authApi.me();
+      queryClient.setQueryData(['me'], data);
+      // Authenticated — send to dashboard
+      return redirect('/dashboard');
+    } catch {
+      // Not authenticated — let them stay on the public page
+      return null;
+    }
+  };
+}
+
+// ---------------------------------------------------------------------------
 // Router factory
 // ---------------------------------------------------------------------------
 export function createRouter(queryClient: QueryClient) {
@@ -106,7 +127,7 @@ export function createRouter(queryClient: QueryClient) {
       element: <RootLayout />,
       errorElement: <RouteError />,
       children: [
-        // Public routes
+        // Public routes — guest loader bounces authenticated users to /dashboard
         {
           path: '/',
           element: <Landing />,
@@ -118,6 +139,7 @@ export function createRouter(queryClient: QueryClient) {
         },
         {
           path: '/login',
+          loader: makeGuestLoader(queryClient),
           element: <Login />,
           handle: {
             title: 'Sign in — Fluid Studio',
@@ -126,6 +148,7 @@ export function createRouter(queryClient: QueryClient) {
         },
         {
           path: '/signup',
+          loader: makeGuestLoader(queryClient),
           element: <Signup />,
           handle: {
             title: 'Get started — Fluid Studio',
