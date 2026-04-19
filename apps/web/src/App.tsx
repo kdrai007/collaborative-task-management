@@ -1,9 +1,6 @@
 import { RouterProvider } from 'react-router';
 import { Toaster } from 'sonner';
-import { createRouter } from './router';
-import { queryClient } from './lib/queryClient';
-
-const router = createRouter(queryClient);
+import { router } from './router';
 
 export default function App() {
   return (

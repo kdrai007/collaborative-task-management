@@ -10,9 +10,9 @@ export async function authRoutes(fastify: FastifyInstance): Promise<void> {
   const authRateLimit = { config: { rateLimit: { max: 10, timeWindow: '1 minute' } } };
 
   fastify.post('/register', authRateLimit, register);
-  fastify.post('/login',    authRateLimit, login);
+  fastify.post('/login', authRateLimit, login);
+  fastify.post('/logout', logout);  // No auth guard — clearing an expired session is valid
 
-  // Protected — must be logged in to log out / get self
-  fastify.post('/logout', { preHandler: [fastify.authenticate] }, logout);
-  fastify.get('/me',      { preHandler: [fastify.authenticate] }, me);
+  // Protected — must be logged in to get own user info
+  fastify.get('/me', { preHandler: [fastify.authenticate] }, me);
 }

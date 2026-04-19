@@ -1,8 +1,7 @@
 import { Plus } from 'lucide-react';
+import { Outlet } from 'react-router';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
-import PageHeader from '../components/PageHeader';
-import Board from '../components/Board';
 import BottomNav from '../components/BottomNav';
 
 export function DashboardLayout() {
@@ -14,8 +13,7 @@ export function DashboardLayout() {
 
       <main className="flex-1 md:ml-72 min-h-screen flex flex-col w-full overflow-hidden">
         <Header />
-        <PageHeader />
-        <Board />
+        <Outlet />
       </main>
 
       <div className="block md:hidden z-50">

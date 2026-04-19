@@ -4,12 +4,12 @@ export default function PageHeader() {
     <section className="px-10 pt-20 pb-24">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div >
-          <nav className="flex items-center gap-2 text-xs font-semibold text-slate-400 mb-2 uppercase tracking-widest">
+          <nav className="flex items-center gap-2 text-xs font-semibold text-on-surface-variant mb-2 uppercase tracking-widest">
             <span >Projects</span>
             <ChevronRight className="text-sm" />
             <span className="text-primary">Current Board</span>
           </nav>
-          <h2 className="text-4xl md:text-5xl font-extrabold font-headline tracking-tight text-indigo-950">Website Redesign</h2>
+          <h2 className="text-4xl md:text-5xl font-extrabold font-headline tracking-tight text-on-surface">Website Redesign</h2>
           <div className="flex items-center gap-4 mt-4">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>

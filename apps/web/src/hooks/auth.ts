@@ -43,8 +43,12 @@ export function useLogout() {
   return useMutation({
     mutationFn: authApi.logout,
     onSuccess: () => {
+      // Redirect FIRST — before clearing the cache.
+      // If we clear the cache first, useMe() returns null, Header unmounts,
+      // and any inline .mutate() onSuccess callbacks get garbage collected.
       queryClient.setQueryData(authKeys.me, null);
       queryClient.clear();
+      window.location.href = '/login';
     },
   });
 }

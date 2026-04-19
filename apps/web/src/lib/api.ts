@@ -12,10 +12,12 @@ interface ApiResponse<T> {
  * Standardized fetch wrapper that includes credentials and json headers.
  */
 export async function apiFetch<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-  const headers = {
-    'Content-Type': 'application/json',
-    ...(options.headers || {}),
+  const headers: Record<string, string> = {
+    ...(options.headers as Record<string, string> || {}),
   };
+  if (options.body) {
+    headers['Content-Type'] = 'application/json';
+  }
 
   const response = await fetch(`${API_BASE}${endpoint}`, {
     ...options,
@@ -35,19 +37,19 @@ export async function apiFetch<T>(endpoint: string, options: RequestInit = {}): 
 }
 
 export const authApi = {
-  login: (credentials: Record<string, string>) => 
+  login: (credentials: Record<string, string>) =>
     apiFetch<{ user: User }>('/auth/login', {
       method: 'POST',
       body: JSON.stringify(credentials),
     }),
-  
+
   register: (data: Record<string, string>) =>
     apiFetch<{ user: User }>('/auth/register', {
       method: 'POST',
       body: JSON.stringify(data),
     }),
 
-  logout: () => 
+  logout: () =>
     apiFetch<null>('/auth/logout', {
       method: 'POST',
     }),
