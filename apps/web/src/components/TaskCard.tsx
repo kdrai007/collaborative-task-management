@@ -1,4 +1,5 @@
 import { CalendarDays, CheckCircle, Eye, History, MessageSquare, MoreHorizontal, Paperclip } from 'lucide-react';
+import DOMPurify from 'dompurify';
 
 export interface TaskTag {
   label: string;
@@ -99,7 +100,10 @@ export default function TaskCard({
       </h4>
 
       {description && (
-        <p className="text-on-surface-variant text-xs mb-4 line-clamp-2">{description}</p>
+        <div
+          className="text-on-surface-variant text-xs mb-4 line-clamp-2"
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description) }}
+        />
       )}
 
       {progress && (

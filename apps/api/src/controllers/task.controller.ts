@@ -8,27 +8,27 @@
 
 import { z } from 'zod';
 import type { FastifyRequest, FastifyReply } from 'fastify';
-import { TaskModel }    from '../models/Task.js';
+import { TaskModel } from '../models/Task.js';
 import { CommentModel } from '../models/Comment.js';
 import { INITIAL_RANK, midRank } from '../lib/lexorank.js';
 
 const createSchema = z.object({
-  columnId:    z.string(),
-  title:       z.string().min(1).max(200),
+  columnId: z.string(),
+  title: z.string().min(1).max(200),
   description: z.string().max(5000).optional(),
-  priority:    z.enum(['low', 'medium', 'high', 'urgent']).optional(),
-  assigneeId:  z.string().nullable().optional(),
-  dueDate:     z.string().datetime().nullable().optional(),
+  priority: z.enum(['low', 'medium', 'high', 'urgent']).optional(),
+  assigneeId: z.string().nullable().optional(),
+  dueDate: z.iso.datetime().nullable().optional(),
 });
 
 const updateSchema = z.object({
-  title:       z.string().min(1).max(200).optional(),
+  title: z.string().min(1).max(200).optional(),
   description: z.string().max(5000).optional(),
-  priority:    z.enum(['low', 'medium', 'high', 'urgent']).optional(),
-  status:      z.enum(['open', 'in_progress', 'in_review', 'done']).optional(),
-  assigneeId:  z.string().nullable().optional(),
-  dueDate:     z.string().datetime().nullable().optional(),
-  columnId:    z.string().optional(), // allow moving column via REST too
+  priority: z.enum(['low', 'medium', 'high', 'urgent']).optional(),
+  status: z.enum(['open', 'in_progress', 'in_review', 'done']).optional(),
+  assigneeId: z.string().nullable().optional(),
+  dueDate: z.iso.datetime().nullable().optional(),
+  columnId: z.string().optional(), // allow moving column via REST too
 });
 
 /** POST /api/workspaces/:workspaceId/tasks */
@@ -46,12 +46,12 @@ export async function createTask(req: FastifyRequest, rep: FastifyReply): Promis
 
   const task = await TaskModel.create({
     workspaceId,
-    columnId:    body.columnId,
-    title:       body.title,
+    columnId: body.columnId,
+    title: body.title,
     description: body.description ?? '',
-    priority:    body.priority ?? 'medium',
-    assigneeId:  body.assigneeId ?? null,
-    dueDate:     body.dueDate ?? null,
+    priority: body.priority ?? 'medium',
+    assigneeId: body.assigneeId ?? null,
+    dueDate: body.dueDate ?? null,
     order,
   });
 

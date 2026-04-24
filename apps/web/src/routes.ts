@@ -16,6 +16,7 @@ const DashboardLayout = lazy(() =>
 );
 const Home = lazy(() => import('./pages/Home').then((m) => ({ default: m.Home })));
 const Projects = lazy(() => import('./pages/Projects').then((m) => ({ default: m.Projects })));
+const Workspaces = lazy(() => import('./pages/Workspaces').then((m) => ({ default: m.Workspaces })));
 const NotFound = lazy(() => import('./pages/NotFound').then((m) => ({ default: m.NotFound })));
 
 // ---------------------------------------------------------------------------
@@ -107,6 +108,14 @@ export const routes = [
             handle: {
               title: 'Projects — Fluid Studio',
               description: 'Manage your boards and tasks.',
+            } satisfies RouteMeta,
+          },
+          {
+            path: 'workspaces',
+            element: el(Workspaces),
+            handle: {
+              title: 'Workspaces — Fluid Studio',
+              description: 'Manage your environments.',
             } satisfies RouteMeta,
           },
         ],

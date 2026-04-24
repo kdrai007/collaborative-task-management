@@ -28,7 +28,7 @@ export default function Header() {
           <ThemeToggle />
           <button className="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors relative">
             <Bell />
-            <span className="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full border-2 border-surface-container-lowest"></span>
+            <span className="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full border-2 border-surface-container-lowest dark:bg-red-500"></span>
           </button>
           <button className="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
             <Mail />

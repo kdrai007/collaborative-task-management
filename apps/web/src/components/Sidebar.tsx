@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router';
 import {
+  Briefcase,
   Calendar,
   Kanban,
   LayoutDashboard,
@@ -35,22 +36,31 @@ export default function Sidebar() {
             to="/dashboard"
             end
             className={({ isActive }) =>
-              `flex items-center gap-4 px-4 py-3 rounded-lg font-manrope transition-all tracking-tight ${
-                isActive
-                  ? 'text-primary font-bold bg-surface-container'
-                  : 'text-on-surface-variant font-medium hover:text-primary hover:bg-surface-container'
+              `flex items-center gap-4 px-4 py-3 rounded-lg font-manrope transition-all tracking-tight ${isActive
+                ? 'text-primary font-bold bg-surface-container'
+                : 'text-on-surface-variant font-medium hover:text-primary hover:bg-surface-container'
               }`
             }
           >
             <LayoutDashboard /> <span>Home</span>
           </NavLink>
           <NavLink
+            to="/dashboard/workspaces"
+            className={({ isActive }) =>
+              `flex items-center gap-4 px-4 py-3 rounded-lg font-manrope transition-all tracking-tight ${isActive
+                ? 'text-primary font-bold bg-surface-container'
+                : 'text-on-surface-variant font-medium hover:text-primary hover:bg-surface-container'
+              }`
+            }
+          >
+            <Briefcase /> <span>Workspaces</span>
+          </NavLink>
+          <NavLink
             to="/dashboard/projects"
             className={({ isActive }) =>
-              `flex items-center gap-4 px-4 py-3 rounded-lg font-manrope transition-all tracking-tight ${
-                isActive
-                  ? 'text-primary font-bold bg-surface-container'
-                  : 'text-on-surface-variant font-medium hover:text-primary hover:bg-surface-container'
+              `flex items-center gap-4 px-4 py-3 rounded-lg font-manrope transition-all tracking-tight ${isActive
+                ? 'text-primary font-bold bg-surface-container'
+                : 'text-on-surface-variant font-medium hover:text-primary hover:bg-surface-container'
               }`
             }
           >
