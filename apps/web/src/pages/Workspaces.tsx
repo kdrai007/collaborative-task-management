@@ -1,29 +1,29 @@
+import type { SyntheticEvent } from 'react';
 import { toast } from 'sonner';
-import { useNavigate, Link } from 'react-router';
-import { useWorkspaces, useCreateWorkspace } from '../hooks/workspace';
+import { Link } from 'react-router';
+import { useWorkspaces, useCreateWorkspace } from '@/hooks/workspace';
 import type { Workspace } from '@repo/types';
 
 export function Workspaces() {
-  const navigate = useNavigate();
   const { data, isLoading } = useWorkspaces();
   const createWorkspace = useCreateWorkspace();
 
   const workspaces = data?.workspaces || [];
 
-  const handleCreate = async (e: React.ChangeEvent<HTMLFormElement>) => {
+  const handleCreate = async (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
     const name = formData.get('name') as string;
     const description = formData.get('description') as string;
 
     try {
       await createWorkspace.mutateAsync({ name, description });
-      toast.success('Workspace created successfully!');
-      e.currentTarget.reset();
+      toast.success('Workspace created successfully!', { position: "top-center" });
+      form.reset();
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to create workspace';
-      toast.error(message);
-
+      toast.error(message, { position: "top-center" });
     }
   };
 
@@ -110,13 +110,6 @@ export function Workspaces() {
               <div className="pt-6 mt-6 border-t border-outline-variant/20"></div>
 
               <div className="flex justify-end gap-3 pt-2">
-                <button
-                  type="button"
-                  onClick={() => navigate(0)}
-                  className="px-6 py-2.5 rounded-xl font-bold text-on-surface-variant hover:bg-surface-container-low transition-colors text-sm"
-                >
-                  Cancel
-                </button>
                 <button
                   type="submit"
                   disabled={createWorkspace.isPending}
