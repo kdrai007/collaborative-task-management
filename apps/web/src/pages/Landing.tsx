@@ -1,3 +1,4 @@
+import { ArrowRight, BarChart2, Kanban, RefreshCw } from 'lucide-react';
 import { Link } from 'react-router';
 
 export function Landing() {
@@ -6,28 +7,28 @@ export function Landing() {
       {/* TopNavBar */}
       <nav className="fixed top-0 w-full z-50 glass-nav shadow-sm dark:shadow-none bg-white/80 backdrop-blur-[20px]">
         <div className="flex justify-between items-center px-4 md:px-8 py-3 md:py-4 max-w-7xl mx-auto">
-          <div className="text-lg md:text-xl font-bold tracking-tighter text-indigo-700 dark:text-indigo-400 font-headline">
+          <div className="text-lg md:text-xl font-bold tracking-tighter text-primary font-headline">
             The Fluid Studio
           </div>
           <div className="hidden lg:flex items-center gap-8 font-headline font-semibold tracking-tight">
-            <a className="text-indigo-700 font-bold border-b-2 border-indigo-600 px-1 py-1" href="#platform">
+            <a className="text-primary font-bold border-b-2 border-primary px-1 py-1" href="#platform">
               Platform
             </a>
-            <a className="text-slate-600 hover:text-indigo-600 transition-colors duration-300" href="#solutions">
+            <a className="text-on-surface-variant hover:text-primary transition-colors duration-200" href="#solutions">
               Solutions
             </a>
-            <a className="text-slate-600 hover:text-indigo-600 transition-colors duration-300" href="#resources">
+            <a className="text-on-surface-variant hover:text-primary transition-colors duration-200" href="#resources">
               Resources
             </a>
-            <a className="text-slate-600 hover:text-indigo-600 transition-colors duration-300" href="#pricing">
+            <a className="text-on-surface-variant hover:text-primary transition-colors duration-200" href="#pricing">
               Pricing
             </a>
           </div>
           <div className="flex items-center gap-3 md:gap-4">
-            <Link to="/login" className="hidden sm:block px-4 py-2 md:px-5 md:py-2 text-slate-600 font-headline font-semibold text-sm hover:bg-slate-50/50 transition-all">
+            <Link to="/login" className="hidden sm:block px-4 py-2 md:px-5 md:py-2 text-on-surface-variant font-headline font-semibold text-sm hover:bg-surface-container transition-colors duration-200 rounded-lg">
               Log In
             </Link>
-            <Link to="/signup" className="px-4 py-2 md:px-6 md:py-2.5 pulse-gradient bg-gradient-to-br from-[#3525cd] to-[#4f46e5] text-white rounded-lg font-headline font-semibold text-xs md:text-sm shadow-lg shadow-indigo-200 active:scale-95 transition-all whitespace-nowrap">
+            <Link to="/signup" className="px-4 py-2 md:px-6 md:py-2.5 pulse-gradient text-white rounded-lg font-headline font-semibold text-xs md:text-sm shadow-lg shadow-primary/20 active:scale-95 transition-[transform,box-shadow] duration-200 whitespace-nowrap">
               Get Started
             </Link>
           </div>
@@ -50,11 +51,11 @@ export function Landing() {
                 A collaborative digital canvas where teams flow from ideation to execution without the friction of traditional management tools.
               </p>
               <div className="flex flex-col sm:flex-row w-full sm:w-auto gap-4 pt-4 lg:justify-start justify-center">
-                <Link to="/signup" className="w-full sm:w-auto justify-center px-6 md:px-8 py-4 pulse-gradient bg-gradient-to-br from-[#3525cd] to-[#4f46e5] text-white rounded-xl font-headline font-bold text-lg shadow-xl shadow-indigo-100 hover:shadow-indigo-200 transition-all flex items-center gap-3">
+                <Link to="/signup" className="w-full sm:w-auto justify-center px-6 md:px-8 py-4 pulse-gradient text-white rounded-xl font-headline font-bold text-lg shadow-xl shadow-primary/20 hover:shadow-primary/30 transition-[transform,box-shadow] duration-200 flex items-center gap-3">
                   Get Started Free
-                  <span className="material-symbols-outlined">arrow_forward</span>
+                  <ArrowRight className="w-5 h-5" aria-hidden="true" />
                 </Link>
-                <button className="w-full sm:w-auto justify-center px-6 md:px-8 py-4 bg-surface-container-high text-on-surface rounded-xl font-headline font-bold text-lg hover:bg-surface-container-highest transition-all flex items-center">
+                <button className="w-full sm:w-auto justify-center px-6 md:px-8 py-4 bg-surface-container-high text-on-surface rounded-xl font-headline font-bold text-lg hover:bg-surface-container-highest transition-colors duration-200 flex items-center">
                   View Demo
                 </button>
               </div>
@@ -126,38 +127,34 @@ export function Landing() {
             <div className="md:col-span-8 bg-surface-container rounded-3xl md:rounded-[2rem] p-6 lg:p-10 relative overflow-hidden group">
               <div className="relative z-10 max-w-md space-y-4 lg:space-y-6">
                 <div className="w-12 h-12 lg:w-14 lg:h-14 bg-surface-container-highest rounded-xl lg:rounded-2xl flex items-center justify-center text-primary">
-                  <span className="material-symbols-outlined text-2xl lg:text-3xl" data-icon="dashboard">
-                    dashboard
-                  </span>
+                  <Kanban className="w-6 h-6 lg:w-7 lg:h-7" aria-hidden="true" />
                 </div>
                 <h3 className="text-2xl lg:text-3xl font-headline font-bold">Agile Kanban Boards</h3>
                 <p className="text-base lg:text-lg text-on-surface-variant">
                   Experience a board that breathes. Drag, drop, and nest tasks with editorial ease. No rigid structures, just pure flow.
                 </p>
-                <div className="flex items-center gap-2 lg:gap-4 text-primary font-bold hover:gap-4 lg:hover:gap-6 transition-all cursor-pointer">
+                <a href="#platform" className="flex items-center gap-2 lg:gap-4 text-primary font-bold hover:gap-4 lg:hover:gap-6 transition-colors duration-200 cursor-pointer">
                   Learn about Flow Boards
-                  <span className="material-symbols-outlined">east</span>
-                </div>
+                  <ArrowRight className="w-5 h-5" aria-hidden="true" />
+                </a>
               </div>
               <div className="hidden sm:block absolute right-[-10%] bottom-[-10%] w-[60%] h-[80%] rounded-tl-3xl bg-white shadow-2xl p-4 transition-transform group-hover:scale-105 duration-500">
                 <div className="space-y-4">
-                  <div className="h-4 w-3/4 bg-slate-100 rounded-full"></div>
+                  <div className="h-4 w-3/4 bg-surface-container-high rounded-full"></div>
                   <div className="flex gap-2">
                     <div className="h-20 w-1/3 bg-primary/10 rounded-xl"></div>
-                    <div className="h-20 w-2/3 bg-slate-50 rounded-xl"></div>
+                    <div className="h-20 w-2/3 bg-surface-container-low rounded-xl"></div>
                   </div>
-                  <div className="h-32 w-full bg-slate-50 rounded-xl border border-slate-100"></div>
+                  <div className="h-32 w-full bg-surface-container-low rounded-xl border border-outline-variant/20"></div>
                 </div>
               </div>
             </div>
 
             {/* Small Card 1 */}
-            <div className="md:col-span-4 bg-white rounded-3xl md:rounded-[2rem] p-6 lg:p-10 flex flex-col justify-between border border-outline-variant/20 hover:shadow-xl transition-all">
+            <div className="md:col-span-4 bg-white rounded-3xl md:rounded-[2rem] p-6 lg:p-10 flex flex-col justify-between border border-outline-variant/20 hover:shadow-xl transition-shadow duration-200">
               <div className="space-y-4 lg:space-y-6">
                 <div className="w-12 h-12 lg:w-14 lg:h-14 bg-tertiary/10 rounded-xl lg:rounded-2xl flex items-center justify-center text-tertiary">
-                  <span className="material-symbols-outlined text-2xl lg:text-3xl" data-icon="sync">
-                    sync
-                  </span>
+                  <RefreshCw className="w-6 h-6 lg:w-7 lg:h-7" aria-hidden="true" />
                 </div>
                 <h3 className="text-xl lg:text-2xl font-headline font-bold">Real-time Team Sync</h3>
                 <p className="text-sm lg:text-base text-on-surface-variant">See who's active, where they're working, and what's next in one continuous pulse.</p>
@@ -168,7 +165,7 @@ export function Landing() {
                   <div className="w-8 h-8 rounded-full bg-tertiary-container"></div>
                   <div className="w-8 h-8 rounded-full bg-secondary-container"></div>
                 </div>
-                <span className="text-xs font-semibold text-slate-400">Typing...</span>
+                <span className="text-xs font-semibold text-on-surface-variant/60">Typing…</span>
               </div>
             </div>
 
@@ -176,19 +173,17 @@ export function Landing() {
             <div className="md:col-span-4 bg-on-surface text-white rounded-3xl md:rounded-[2rem] p-6 lg:p-10 flex flex-col justify-between group">
               <div className="space-y-4 lg:space-y-6">
                 <div className="w-12 h-12 lg:w-14 lg:h-14 bg-white/10 rounded-xl lg:rounded-2xl flex items-center justify-center text-primary-container">
-                  <span className="material-symbols-outlined text-2xl lg:text-3xl" data-icon="insights">
-                    insights
-                  </span>
+                  <BarChart2 className="w-6 h-6 lg:w-7 lg:h-7" aria-hidden="true" />
                 </div>
                 <h3 className="text-xl lg:text-2xl font-headline font-bold">Smart Project Analytics</h3>
-                <p className="text-sm lg:text-base text-slate-400">Identify bottlenecks before they become roadblocks with automated performance heatmaps.</p>
+                <p className="text-sm lg:text-base text-inverse-on-surface/70">Identify bottlenecks before they become roadblocks with automated performance heatmaps.</p>
               </div>
               <div className="mt-8 h-20 lg:h-24 flex items-end gap-1 overflow-hidden">
-                <div className="w-full bg-primary-container h-[40%] rounded-t-lg transition-all group-hover:h-[60%]"></div>
-                <div className="w-full bg-primary-container h-[70%] rounded-t-lg transition-all group-hover:h-[90%]"></div>
-                <div className="w-full bg-primary-container h-[50%] rounded-t-lg transition-all group-hover:h-[70%]"></div>
-                <div className="w-full bg-primary-container h-[90%] rounded-t-lg transition-all group-hover:h-[50%]"></div>
-                <div className="w-full bg-primary-container h-[60%] rounded-t-lg transition-all group-hover:h-[80%]"></div>
+                <div className="w-full bg-primary-container h-[40%] rounded-t-lg transition-[height] duration-200 group-hover:h-[60%]"></div>
+                <div className="w-full bg-primary-container h-[70%] rounded-t-lg transition-[height] duration-200 group-hover:h-[90%]"></div>
+                <div className="w-full bg-primary-container h-[50%] rounded-t-lg transition-[height] duration-200 group-hover:h-[70%]"></div>
+                <div className="w-full bg-primary-container h-[90%] rounded-t-lg transition-[height] duration-200 group-hover:h-[50%]"></div>
+                <div className="w-full bg-primary-container h-[60%] rounded-t-lg transition-[height] duration-200 group-hover:h-[80%]"></div>
               </div>
             </div>
 
@@ -199,7 +194,7 @@ export function Landing() {
                   <h3 className="text-2xl lg:text-3xl font-headline font-bold">Built for speed.</h3>
                   <p className="text-sm lg:text-base text-on-surface-variant">Fluid Studio is optimized for keyboard-first navigation and millisecond responsiveness.</p>
                   <div className="flex gap-3">
-                    <kbd className="px-3 py-1.5 bg-white rounded-lg shadow-sm font-mono text-xs font-bold text-on-surface">⌘ K</kbd>
+                    <kbd className="px-3 py-1.5 bg-white rounded-lg shadow-sm font-mono text-xs font-bold text-on-surface">⌘&nbsp;K</kbd>
                     <span className="text-xs text-on-surface-variant flex items-center">Open Command Palette</span>
                   </div>
                 </div>
@@ -232,10 +227,10 @@ export function Landing() {
                 The best work doesn't happen in a silo. It happens in the flow. Start your 14-day free trial today.
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 w-full">
-                <Link to="/signup" className="w-full sm:w-auto px-6 md:px-10 py-4 lg:py-5 bg-white text-primary rounded-xl md:rounded-2xl font-headline font-extrabold text-base md:text-xl hover:bg-surface-bright transition-all shadow-2xl inline-flex justify-center items-center">
+                <Link to="/signup" className="w-full sm:w-auto px-6 md:px-10 py-4 lg:py-5 bg-white text-primary rounded-xl md:rounded-2xl font-headline font-extrabold text-base md:text-xl hover:bg-surface-bright transition-[background-color,transform] duration-200 shadow-2xl inline-flex justify-center items-center">
                   Get Started Now
                 </Link>
-                <button className="w-full sm:w-auto px-6 md:px-10 py-4 lg:py-5 bg-white/10 text-white rounded-xl md:rounded-2xl font-headline font-extrabold text-base md:text-xl hover:bg-white/20 transition-all backdrop-blur-sm border border-white/20 inline-flex justify-center items-center">
+                <button className="w-full sm:w-auto px-6 md:px-10 py-4 lg:py-5 bg-white/10 text-white rounded-xl md:rounded-2xl font-headline font-extrabold text-base md:text-xl hover:bg-white/20 transition-colors duration-200 backdrop-blur-sm border border-white/20 inline-flex justify-center items-center">
                   Book a Demo
                 </button>
               </div>
@@ -256,16 +251,16 @@ export function Landing() {
               Redefining productivity for the modern, distributed creative team.
             </p>
             <div className="flex gap-4">
-              <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 hover:bg-primary hover:text-white transition-all cursor-pointer">
-                <span className="material-symbols-outlined text-sm" data-icon="public">
+              <a href="https://fluid.studio" target="_blank" rel="noopener noreferrer" aria-label="Website" className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 hover:bg-primary hover:text-white transition-[background-color,color] duration-200 cursor-pointer">
+                <span className="material-symbols-outlined text-sm" data-icon="public" aria-hidden="true">
                   public
                 </span>
-              </div>
-              <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 hover:bg-primary hover:text-white transition-all cursor-pointer">
-                <span className="material-symbols-outlined text-sm" data-icon="alternate_email">
+              </a>
+              <a href="mailto:support@fluid.studio" aria-label="Email Support" className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 hover:bg-primary hover:text-white transition-[background-color,color] duration-200 cursor-pointer">
+                <span className="material-symbols-outlined text-sm" data-icon="alternate_email" aria-hidden="true">
                   alternate_email
                 </span>
-              </div>
+              </a>
             </div>
           </div>
           <div className="flex flex-col md:items-end justify-between space-y-6 md:space-y-0 text-left md:text-right">

@@ -3,7 +3,7 @@
 @import "tw-animate-css";
 @import "@fontsource-variable/geist";
 
-@theme inline {
+@theme {
   /* ── Shadcn/UI core aliases ── */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -89,9 +89,18 @@
   --color-outline-variant: var(--outline-variant);
 
   /* ── Radii ── */
-  --radius-lg: var(--radius);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-sm: calc(var(--radius) - 4px);
+  --radius: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
+
+  /* ── Typography ── */
+  --font-headline: Manrope, sans-serif;
+  --font-body: Inter, sans-serif;
+  --font-label: Inter, sans-serif;
+
+  /* ── Shadows ── */
+  --shadow-ambient: 0px 20px 40px rgba(11, 28, 48, 0.06);
 }
 
 @layer base {
@@ -194,7 +203,7 @@
     --accent-foreground: var(--primary);
     --destructive: #ef4444;
     --destructive-foreground: #ffffff;
-    --border: #4b5e7626;
+    --border: #c7c4d826;
     /* 15% ghost border */
     --input: var(--surface-container-low);
     --ring: var(--primary);
@@ -220,11 +229,11 @@
   .dark {
     /* ── Surface Hierarchy ── */
     --surface: #0b1c30;
-    --surface-container-lowest: #050d18;
+    --surface-container-lowest: #132740;
     --surface-container-low: #081423;
-    --surface-container: #0b1c30;
-    --surface-container-high: #132740;
-    --surface-container-highest: #1c3552;
+    --surface-container: #050d18;
+    --surface-container-high: #1c3552;
+    --surface-container-highest: #274567;
     --surface-bright: #274567;
     /* DESIGN.md §6 Do: use surface-bright for Dark Mode accents */
     --surface-dim: #071020;
@@ -294,7 +303,7 @@
     --accent-foreground: var(--primary);
     --destructive: #f87171;
     --destructive-foreground: #ffffff;
-    --border: #a0b6cc26;
+    --border: #1c355226;
     /* 15% ghost border */
     --input: var(--surface-container-low);
     --ring: var(--primary);
@@ -358,4 +367,13 @@ body {
 
 ::-webkit-scrollbar {
   display: none;
+}
+
+/* ── Accessibility: respect OS reduced-motion preference ── */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

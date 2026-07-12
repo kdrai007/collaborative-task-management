@@ -9,8 +9,7 @@
 import { z } from 'zod';
 import type { FastifyRequest, FastifyReply } from 'fastify';
 import { TaskModel } from '../models/Task.js';
-import { CommentModel } from '../models/Comment.js';
-import { INITIAL_RANK, midRank } from '../lib/lexorank.js';
+import { TaskOperations } from '../domain/TaskOperations.js';
 
 const createSchema = z.object({
   columnId: z.string(),
@@ -18,7 +17,7 @@ const createSchema = z.object({
   description: z.string().max(5000).optional(),
   priority: z.enum(['low', 'medium', 'high', 'urgent']).optional(),
   assigneeId: z.string().nullable().optional(),
-  dueDate: z.iso.datetime().nullable().optional(),
+  dueDate: z.string().datetime().nullable().optional(),
 });
 
 const updateSchema = z.object({
@@ -27,7 +26,7 @@ const updateSchema = z.object({
   priority: z.enum(['low', 'medium', 'high', 'urgent']).optional(),
   status: z.enum(['open', 'in_progress', 'in_review', 'done']).optional(),
   assigneeId: z.string().nullable().optional(),
-  dueDate: z.iso.datetime().nullable().optional(),
+  dueDate: z.string().datetime().nullable().optional(),
   columnId: z.string().optional(), // allow moving column via REST too
 });
 
@@ -36,26 +35,17 @@ export async function createTask(req: FastifyRequest, rep: FastifyReply): Promis
   const { workspaceId } = req.params as { workspaceId: string };
   const body = createSchema.parse(req.body);
 
-  // Place new task at the end of the column
-  const last = await TaskModel
-    .findOne({ columnId: body.columnId })
-    .sort({ order: -1 })
-    .lean();
-
-  const order = last ? midRank(last.order, null) : INITIAL_RANK;
-
-  const task = await TaskModel.create({
+  const result = await TaskOperations.createTask({
     workspaceId,
     columnId: body.columnId,
     title: body.title,
-    description: body.description ?? '',
-    priority: body.priority ?? 'medium',
-    assigneeId: body.assigneeId ?? null,
-    dueDate: body.dueDate ?? null,
-    order,
+    description: body.description,
+    priority: body.priority,
+    assigneeId: body.assigneeId,
+    dueDate: body.dueDate,
   });
 
-  await rep.status(201).send({ success: true, data: { task: task.toJSON() } });
+  await rep.status(201).send({ success: true, data: { task: result.data } });
 }
 
 /** GET /api/workspaces/:workspaceId/tasks/:taskId */
@@ -76,29 +66,26 @@ export async function updateTask(req: FastifyRequest, rep: FastifyReply): Promis
   const { taskId } = req.params as { taskId: string };
   const body = updateSchema.parse(req.body);
 
-  const task = await TaskModel.findByIdAndUpdate(
-    taskId,
-    { $set: body },
-    { returnDocument: 'after', runValidators: true },
-  );
-
-  if (!task) {
-    await rep.status(404).send({ success: false, message: 'Task not found' });
-    return;
+  try {
+    const result = await TaskOperations.updateTask({
+      taskId,
+      changes: body,
+    });
+    await rep.send({ success: true, data: { task: result.data } });
+  } catch (err) {
+    await rep.status(404).send({ success: false, message: (err as Error).message });
   }
-
-  await rep.send({ success: true, data: { task: task.toJSON() } });
 }
 
 /** DELETE /api/workspaces/:workspaceId/tasks/:taskId */
 export async function deleteTask(req: FastifyRequest, rep: FastifyReply): Promise<void> {
   const { taskId } = req.params as { taskId: string };
 
-  // Cascade: remove comments belonging to this task
-  await Promise.all([
-    CommentModel.deleteMany({ taskId }),
-    TaskModel.findByIdAndDelete(taskId),
-  ]);
-
-  await rep.send({ success: true, data: null });
+  try {
+    await TaskOperations.deleteTask({ taskId });
+    await rep.send({ success: true, data: null });
+  } catch (err) {
+    await rep.status(404).send({ success: false, message: (err as Error).message });
+  }
 }
+

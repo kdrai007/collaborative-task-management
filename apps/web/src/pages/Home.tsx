@@ -33,9 +33,9 @@ export function Home() {
       <section className="space-y-4">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
-            <h2 className="text-5xl font-extrabold font-headline tracking-tighter text-on-background">
+            <h1 className="text-5xl font-extrabold font-headline tracking-tighter text-on-background">
               {getGreeting()}.
-            </h2>
+            </h1>
             <p className="text-lg text-on-surface-variant mt-2 max-w-xl">
               You have <span className="text-primary font-bold">4 high-priority tasks</span> requiring attention today. The studio is humming.
             </p>
@@ -48,22 +48,22 @@ export function Home() {
         {/* Deadlines Summary (Wide) */}
         <div className="md:col-span-8 bg-surface-container-low rounded-3xl p-8 space-y-6">
           <div className="flex items-center justify-between">
-            <h3 className="text-2xl font-bold font-headline tracking-tight text-on-surface">Critical Deadlines</h3>
+            <h2 className="text-2xl font-bold font-headline tracking-tight text-on-surface">Critical Deadlines</h2>
             <button className="text-primary font-bold text-sm flex items-center gap-1 hover:underline">
-              View Schedule <ArrowRight className="w-4 h-4" />
+              View Schedule <ArrowRight className="w-4 h-4" aria-hidden="true" />
             </button>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/15 group hover:bg-surface-container hover:border-transparent transition-all duration-300">
+            <div className="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/15 group hover:bg-surface-container hover:border-transparent transition-[background-color,border-color] duration-300">
               <div className="flex justify-between items-start mb-4">
                 <span className="px-3 py-1 bg-error-container text-on-error-container rounded-full text-[10px] font-bold uppercase tracking-wider">
                   Due Today
                 </span>
-                <Clock className="text-on-surface-variant w-5 h-5" />
+                <Clock className="text-on-surface-variant w-5 h-5" aria-hidden="true" />
               </div>
-              <h4 className="text-lg font-bold font-headline mb-1 group-hover:text-primary transition-colors text-on-surface">
+              <h3 className="text-lg font-bold font-headline mb-1 group-hover:text-primary transition-colors text-on-surface">
                 Mobile App V2 Final Review
-              </h4>
+              </h3>
               <p className="text-sm text-on-surface-variant line-clamp-2">
                 Complete the high-fidelity prototypes for the checkout flow and user onboarding.
               </p>
@@ -75,16 +75,16 @@ export function Home() {
               </div>
             </div>
 
-            <div className="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/15 group hover:bg-surface-container hover:border-transparent transition-all duration-300">
+            <div className="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/15 group hover:bg-surface-container hover:border-transparent transition-[background-color,border-color] duration-300">
               <div className="flex justify-between items-start mb-4">
                 <span className="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full text-[10px] font-bold uppercase tracking-wider">
                   Tomorrow
                 </span>
-                <Zap className="text-on-surface-variant w-5 h-5" />
+                <Zap className="text-on-surface-variant w-5 h-5" aria-hidden="true" />
               </div>
-              <h4 className="text-lg font-bold font-headline mb-1 group-hover:text-primary transition-colors text-on-surface">
+              <h3 className="text-lg font-bold font-headline mb-1 group-hover:text-primary transition-colors text-on-surface">
                 Brand Identity Guidelines
-              </h4>
+              </h3>
               <p className="text-sm text-on-surface-variant line-clamp-2">
                 Document the typography system and color palette for Kinetic Indigo.
               </p>
@@ -100,7 +100,7 @@ export function Home() {
         {/* Priority Tasks (Bottom Wide) */}
         <div className="md:col-span-12 space-y-6">
           <div className="flex items-center justify-between">
-            <h3 className="text-2xl font-bold font-headline tracking-tight text-on-surface">Top Priority Tasks</h3>
+            <h2 className="text-2xl font-bold font-headline tracking-tight text-on-surface">Top Priority Tasks</h2>
             <div className="flex items-center gap-2">
               <button className="px-4 py-2 bg-surface-container-low rounded-lg text-sm font-medium hover:bg-surface-container transition-colors text-on-surface">
                 All Projects
@@ -126,14 +126,14 @@ export function Home() {
                   <tr className="hover:bg-surface-container transition-colors group">
                     <td className="px-8 py-5">
                       <div className="flex items-center gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-primary" />
+                        <CheckCircle2 className="w-5 h-5 text-primary" aria-hidden="true" />
                         <span className="font-bold text-on-surface group-hover:text-primary transition-colors cursor-pointer">Refactor API Middleware</span>
                       </div>
                     </td>
                     <td className="px-8 py-5 text-sm text-on-surface-variant">Phoenix Platform</td>
                     <td className="px-8 py-5">
                       <div className="flex items-center gap-2">
-                        <img className="w-6 h-6 rounded-full" data-alt="Portrait of a professional man in a casual shirt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDosTnzFmjBLXU-SZg3GlOYkVmYMRUFtCykbeUhwojiqO8-uKnQw4ZUQDQJzG8L_QvoDuvz-mzu8lSadF2je6cb79PU9Z-Ro7mS3ccjeStTE26bBx6oailXpprERXGrjFro3WsYW5ALd6Y4mM-Om4pXZFunySmoQJ0qXoiD29O96R5pUPXF6IxScCSlCk31qriOg8rxU2W5ilrtfqQqLiL8i7lhbvZbfiEpG_lm2GLoTDK8T387S5i0pUFG9KPTzJWRiAQe_kIcbEk" />
+                        <img className="w-6 h-6 rounded-full" alt="Portrait of David K." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDosTnzFmjBLXU-SZg3GlOYkVmYMRUFtCykbeUhwojiqO8-uKnQw4ZUQDQJzG8L_QvoDuvz-mzu8lSadF2je6cb79PU9Z-Ro7mS3ccjeStTE26bBx6oailXpprERXGrjFro3WsYW5ALd6Y4mM-Om4pXZFunySmoQJ0qXoiD29O96R5pUPXF6IxScCSlCk31qriOg8rxU2W5ilrtfqQqLiL8i7lhbvZbfiEpG_lm2GLoTDK8T387S5i0pUFG9KPTzJWRiAQe_kIcbEk" />
                         <span className="text-xs font-medium text-on-surface">David K.</span>
                       </div>
                     </td>
@@ -141,21 +141,21 @@ export function Home() {
                       <span className="px-3 py-1 bg-surface-container-high text-on-surface-variant rounded-full text-[10px] font-bold uppercase tracking-wider">In Progress</span>
                     </td>
                     <td className="px-8 py-5 text-right">
-                      <button className="text-outline-variant hover:text-primary"><MoreHorizontal className="w-5 h-5" /></button>
+                      <button className="text-outline-variant hover:text-primary" aria-label="More task options"><MoreHorizontal className="w-5 h-5" aria-hidden="true" /></button>
                     </td>
                   </tr>
 
                   <tr className="hover:bg-surface-container transition-colors group">
                     <td className="px-8 py-5">
                       <div className="flex items-center gap-3">
-                        <Circle className="w-5 h-5 text-outline-variant" />
+                        <Circle className="w-5 h-5 text-outline-variant" aria-hidden="true" />
                         <span className="font-bold text-on-surface group-hover:text-primary transition-colors cursor-pointer">User Feedback Interviews</span>
                       </div>
                     </td>
                     <td className="px-8 py-5 text-sm text-on-surface-variant">Product Research</td>
                     <td className="px-8 py-5">
                       <div className="flex items-center gap-2">
-                        <img className="w-6 h-6 rounded-full" data-alt="Portrait of a creative professional woman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRUBgUbgpIv8tWo8GZf-cgwqHXOWI1HmGLf8T_CB0jCGVI0XVYaneh6AJISHm5k6KK-O4hSqCItDzyiiaB-QtG93cbwFYl5WqLbi7yvhGSIByw0nB5Wd-ENSkRiFNdO8V_Ql19rRUFzw_Ve9NMFSUFmB6uK_hsxAC2Hb9j52j6DrOi7dyvQZkL3n87g5NoC-DXIT91aN6E6BQd6Ak0B4Ix_dHJr8b1q4xHmROJOK82A5ivbo5MpurcKtZELaliSZdHz3t4oBDToMo" />
+                        <img className="w-6 h-6 rounded-full" alt="Portrait of Emma L." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRUBgUbgpIv8tWo8GZf-cgwqHXOWI1HmGLf8T_CB0jCGVI0XVYaneh6AJISHm5k6KK-O4hSqCItDzyiiaB-QtG93cbwFYl5WqLbi7yvhGSIByw0nB5Wd-ENSkRiFNdO8V_Ql19rRUFzw_Ve9NMFSUFmB6uK_hsxAC2Hb9j52j6DrOi7dyvQZkL3n87g5NoC-DXIT91aN6E6BQd6Ak0B4Ix_dHJr8b1q4xHmROJOK82A5ivbo5MpurcKtZELaliSZdHz3t4oBDToMo" />
                         <span className="text-xs font-medium text-on-surface">Emma L.</span>
                       </div>
                     </td>
@@ -163,21 +163,21 @@ export function Home() {
                       <span className="px-3 py-1 bg-primary-fixed text-on-primary-fixed-variant rounded-full text-[10px] font-bold uppercase tracking-wider">Pending</span>
                     </td>
                     <td className="px-8 py-5 text-right">
-                      <button className="text-outline-variant hover:text-primary"><MoreHorizontal className="w-5 h-5" /></button>
+                      <button className="text-outline-variant hover:text-primary" aria-label="More task options"><MoreHorizontal className="w-5 h-5" aria-hidden="true" /></button>
                     </td>
                   </tr>
 
                   <tr className="hover:bg-surface-container transition-colors group">
                     <td className="px-8 py-5">
                       <div className="flex items-center gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-primary" />
+                        <CheckCircle2 className="w-5 h-5 text-primary" aria-hidden="true" />
                         <span className="font-bold text-on-surface group-hover:text-primary transition-colors cursor-pointer">Secure Payment Gateway</span>
                       </div>
                     </td>
                     <td className="px-8 py-5 text-sm text-on-surface-variant">E-Commerce Flow</td>
                     <td className="px-8 py-5">
                       <div className="flex items-center gap-2">
-                        <img className="w-6 h-6 rounded-full" data-alt="Portrait of a technical lead" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5FR2UNh9ilYj4CoQcMeM7Cn2zZyUpyTdpe3cKWFHdzcuRuYett18aZaivZHGe-C95juQ0lJ3R0yK_4Vc71ZppnVrGhnMRF0vZ2bk_CNncqH6Y6cizobXXIt3xrpzWONyFpQQzlQvXoNSsvOMCL01Qbl5nkReNrCYfqKqvBDbUC8mOYJoaxLEVXydrOWS18gUDoyO7TGF0jo66S9rEBYHoVm7_MGaylFdp7H8bdcEw7s80HLbYqMZ-NbYb5KmNyPmmvc--RrLOjJ8" />
+                        <img className="w-6 h-6 rounded-full" alt="Portrait of Alex R." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5FR2UNh9ilYj4CoQcMeM7Cn2zZyUpyTdpe3cKWFHdzcuRuYett18aZaivZHGe-C95juQ0lJ3R0yK_4Vc71ZppnVrGhnMRF0vZ2bk_CNncqH6Y6cizobXXIt3xrpzWONyFpQQzlQvXoNSsvOMCL01Qbl5nkReNrCYfqKqvBDbUC8mOYJoaxLEVXydrOWS18gUDoyO7TGF0jo66S9rEBYHoVm7_MGaylFdp7H8bdcEw7s80HLbYqMZ-NbYb5KmNyPmmvc--RrLOjJ8" />
                         <span className="text-xs font-medium text-on-surface">Alex R.</span>
                       </div>
                     </td>
@@ -185,7 +185,7 @@ export function Home() {
                       <span className="px-3 py-1 bg-error-container text-on-error-container rounded-full text-[10px] font-bold uppercase tracking-wider">Critical</span>
                     </td>
                     <td className="px-8 py-5 text-right">
-                      <button className="text-outline-variant hover:text-primary"><MoreHorizontal className="w-5 h-5" /></button>
+                      <button className="text-outline-variant hover:text-primary" aria-label="More task options"><MoreHorizontal className="w-5 h-5" aria-hidden="true" /></button>
                     </td>
                   </tr>
                 </tbody>

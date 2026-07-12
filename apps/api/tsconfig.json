@@ -15,5 +15,8 @@
   "include": [
     "src",
     "../../packages/types/src"
+  ],
+  "exclude": [
+    "src/__tests__"
   ]
 }

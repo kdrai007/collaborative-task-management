@@ -9,6 +9,7 @@ export interface TaskTag {
 export interface TaskAssignee {
   src: string;
   name?: string;
+  isActive?: boolean;
 }
 
 export interface TaskProgress {
@@ -67,7 +68,7 @@ export default function TaskCard({
     }
   };
 
-  const baseClasses = "p-5 rounded-xl shadow-sm transition-all duration-500 group cursor-grab active:cursor-grabbing hover:-translate-y-0.5";
+  const baseClasses = "p-5 rounded-xl shadow-sm transition-all duration-300 group cursor-grab active:cursor-grabbing hover:shadow-md hover:shadow-primary/10";
   // The 'Done' generic look
   const defaultBg = className.includes('bg-') ? '' : 'bg-surface-container-lowest hover:bg-surface-container hover:shadow-ambient';
 
@@ -119,12 +120,16 @@ export default function TaskCard({
         {assignees.length > 0 && (
           <div className="flex -space-x-2">
             {assignees.map((user, idx) => (
-              <img
-                key={idx}
-                className="w-6 h-6 rounded-full border-2 border-surface-container-lowest object-cover"
-                alt={user.name || 'Assignee'}
-                src={user.src}
-              />
+              <div key={idx} className="relative">
+                <img
+                  className="relative z-10 w-6 h-6 rounded-full border-2 border-surface-container-lowest group-hover:border-surface-container object-cover"
+                  alt={user.name || 'Assignee'}
+                  src={user.src}
+                />
+                {user.isActive && (
+                  <span className="absolute bottom-0 right-0 z-20 w-1.5 h-1.5 rounded-full bg-tertiary border-[1.5px] border-surface-container-lowest group-hover:border-surface-container"></span>
+                )}
+              </div>
             ))}
           </div>
         )}

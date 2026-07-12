@@ -60,7 +60,7 @@ export function Workspaces() {
                   <div className="w-12 h-12 rounded-xl bg-surface-variant flex items-center justify-center text-primary transition-transform group-hover:scale-105">
                     <span className="font-bold text-xl uppercase font-headline">{ws.name.charAt(0)}</span>
                   </div>
-                  <div>
+                  <div className="min-w-0 flex-1">
                     <h3 className="text-lg font-headline font-bold text-on-background group-hover:text-primary transition-colors">{ws.name}</h3>
                     <p className="text-sm text-on-surface-variant mt-1 line-clamp-1">{ws.description || 'No description provided'}</p>
                   </div>
@@ -91,8 +91,9 @@ export function Workspaces() {
                   name="name"
                   type="text"
                   required
-                  placeholder="e.g., Q4 Engineering Sprint"
-                  className="w-full bg-surface-container-low text-on-background rounded-xl px-4 py-3 border-none ring-1 ring-transparent focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all shadow-sm placeholder:text-on-surface-variant/70 font-medium"
+                  autoComplete="off"
+                  placeholder="e.g., Q4 Engineering Sprint…"
+                  className="w-full bg-surface-container-low text-on-background rounded-xl px-4 py-3 border-none ring-1 ring-transparent focus-visible:ring-2 focus-visible:ring-primary focus-visible:bg-surface-container-lowest transition-[background-color,ring] shadow-sm placeholder:text-on-surface-variant/70 font-medium"
                 />
               </div>
 
@@ -102,8 +103,9 @@ export function Workspaces() {
                   id="workspace-desc"
                   name="description"
                   rows={3}
-                  placeholder="Briefly describe the purpose of this workspace..."
-                  className="w-full bg-surface-container-low text-on-background rounded-xl px-4 py-3 border-none ring-1 ring-transparent focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all shadow-sm placeholder:text-on-surface-variant/70 resize-none font-medium"
+                  autoComplete="off"
+                  placeholder="Briefly describe the purpose of this workspace…"
+                  className="w-full bg-surface-container-low text-on-background rounded-xl px-4 py-3 border-none ring-1 ring-transparent focus-visible:ring-2 focus-visible:ring-primary focus-visible:bg-surface-container-lowest transition-[background-color,ring] shadow-sm placeholder:text-on-surface-variant/70 resize-none font-medium"
                 ></textarea>
               </div>
 
@@ -115,7 +117,7 @@ export function Workspaces() {
                   disabled={createWorkspace.isPending}
                   className="px-8 py-2.5 rounded-xl pulse-gradient bg-primary text-on-primary font-bold text-sm shadow-[0px_20px_40px_rgba(11,28,48,0.1)] hover:scale-[1.02] transition-transform active:scale-95 disabled:opacity-50 disabled:hover:scale-100"
                 >
-                  {createWorkspace.isPending ? 'Creating...' : 'Create Workspace'}
+                  {createWorkspace.isPending ? 'Creating…' : 'Create Workspace'}
                 </button>
               </div>
             </form>

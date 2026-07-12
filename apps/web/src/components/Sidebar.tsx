@@ -66,29 +66,25 @@ export default function Sidebar() {
           >
             <Kanban /> <span>Projects</span>
           </NavLink>
-          <a
-            className="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all font-manrope font-medium tracking-tight"
-            href="#"
+          <button
+            className="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all font-manrope font-medium tracking-tight w-full text-left cursor-pointer"
           >
             <Calendar /> <span>Calendar</span>
-          </a>
-          <a
-            className="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all font-manrope font-medium tracking-tight"
-            href="#"
+          </button>
+          <button
+            className="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all font-manrope font-medium tracking-tight w-full text-left cursor-pointer"
           >
             <Users /> <span>Team</span>
-          </a>
-          <a
-            className="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all font-manrope font-medium tracking-tight"
-            href="#"
+          </button>
+          <button
+            className="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all font-manrope font-medium tracking-tight w-full text-left cursor-pointer"
           >
             <Settings /> <span>Settings</span>
-          </a>
+          </button>
         </nav>
         <div className="px-6 mt-auto">
 
-          <button className="w-full pulse-gradient text-white font-semibold py-4 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-primary/20 hover:scale-[1.02] transition-transform active:scale-95">
-
+          <button className="w-full pulse-gradient text-white font-semibold py-4 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-primary/20 hover:brightness-110 transition-all active:scale-95 cursor-pointer">
             <ListPlus /> <span>Create New Task</span>
           </button>
         </div>

@@ -6,10 +6,8 @@
 // =============================================================================
 
 import type { Server, Socket } from 'socket.io';
-import type { ClientToServerEvents, ServerToClientEvents, SocketData, Task } from '@repo/types';
-import { TaskModel }    from '../models/Task.js';
-import { CommentModel } from '../models/Comment.js';
-import { midRank, INITIAL_RANK } from '../lib/lexorank.js';
+import type { ClientToServerEvents, ServerToClientEvents, SocketData } from '@repo/types';
+import { TaskOperations } from '../domain/TaskOperations.js';
 
 type IO  = Server<ClientToServerEvents, ServerToClientEvents, Record<string,never>, SocketData>;
 type Soc = Socket<ClientToServerEvents, ServerToClientEvents, Record<string,never>, SocketData>;
@@ -21,31 +19,20 @@ export function registerTaskHandlers(io: IO, socket: Soc): void {
   // ---------------------------------------------------------------------------
   socket.on('task:create', async (payload, ack) => {
     try {
-      // Place the new task at the end of the target column
-      const last = await TaskModel
-        .findOne({ columnId: payload.columnId })
-        .sort({ order: -1 })
-        .lean();
-
-      const order = last ? midRank(last.order, null) : INITIAL_RANK;
-
-      const task = await TaskModel.create({
+      const result = await TaskOperations.createTask({
         workspaceId: payload.workspaceId,
-        columnId:    payload.columnId,
-        title:       payload.title,
-        description: payload.description ?? '',
-        priority:    payload.priority ?? 'medium',
-        assigneeId:  payload.assigneeId ?? null,
-        dueDate:     payload.dueDate ?? null,
-        order,
+        columnId: payload.columnId,
+        title: payload.title,
+        description: payload.description,
+        priority: payload.priority,
+        assigneeId: payload.assigneeId,
+        dueDate: payload.dueDate,
       });
 
-      const taskJSON = task.toJSON() as unknown as Task;
-
       // Broadcast to everyone in the workspace room (including the sender)
-      io.to(payload.workspaceId).emit('task:created', taskJSON);
+      io.to(payload.workspaceId).emit('task:created', result.data);
 
-      ack({ success: true, data: taskJSON });
+      ack({ success: true, data: result.data });
     } catch (err) {
       ack({ success: false, message: (err as Error).message });
     }
@@ -56,26 +43,17 @@ export function registerTaskHandlers(io: IO, socket: Soc): void {
   // ---------------------------------------------------------------------------
   socket.on('task:move', async (payload, ack) => {
     try {
-      // Compute the new LexoRank between the two surrounding items
-      const newOrder = midRank(payload.beforeOrder, payload.afterOrder);
-
-      const task = await TaskModel.findByIdAndUpdate(
-        payload.taskId,
-        { $set: { columnId: payload.targetColumnId, order: newOrder } },
-        { returnDocument: 'after', runValidators: true },
-      );
-
-      if (!task) {
-        ack({ success: false, message: 'Task not found' });
-        return;
-      }
-
-      const taskJSON = task.toJSON() as unknown as Task;
+      const result = await TaskOperations.moveTask({
+        taskId: payload.taskId,
+        targetColumnId: payload.targetColumnId,
+        beforeOrder: payload.beforeOrder,
+        afterOrder: payload.afterOrder,
+      });
 
       // Broadcast so all connected clients update their board state
-      io.to(taskJSON.workspaceId).emit('task:moved', taskJSON);
+      io.to(result.data.workspaceId).emit('task:moved', result.data);
 
-      ack({ success: true, data: taskJSON });
+      ack({ success: true, data: result.data });
     } catch (err) {
       ack({ success: false, message: (err as Error).message });
     }
@@ -86,21 +64,14 @@ export function registerTaskHandlers(io: IO, socket: Soc): void {
   // ---------------------------------------------------------------------------
   socket.on('task:update', async (payload, ack) => {
     try {
-      const task = await TaskModel.findByIdAndUpdate(
-        payload.taskId,
-        { $set: payload.changes },
-        { returnDocument: 'after', runValidators: true },
-      );
+      const result = await TaskOperations.updateTask({
+        taskId: payload.taskId,
+        changes: payload.changes,
+      });
 
-      if (!task) {
-        ack({ success: false, message: 'Task not found' });
-        return;
-      }
+      io.to(result.data.workspaceId).emit('task:updated', result.data);
 
-      const taskJSON = task.toJSON() as unknown as Task;
-      io.to(taskJSON.workspaceId).emit('task:updated', taskJSON);
-
-      ack({ success: true, data: taskJSON });
+      ack({ success: true, data: result.data });
     } catch (err) {
       ack({ success: false, message: (err as Error).message });
     }
@@ -111,21 +82,11 @@ export function registerTaskHandlers(io: IO, socket: Soc): void {
   // ---------------------------------------------------------------------------
   socket.on('task:delete', async (payload, ack) => {
     try {
-      const task = await TaskModel.findById(payload.taskId).lean();
-      if (!task) {
-        ack({ success: false, message: 'Task not found' });
-        return;
-      }
+      const result = await TaskOperations.deleteTask({
+        taskId: payload.taskId,
+      });
 
-      const workspaceId = (task.workspaceId as unknown as { toString(): string }).toString();
-
-      // Remove comments first, then the task
-      await Promise.all([
-        CommentModel.deleteMany({ taskId: payload.taskId }),
-        TaskModel.findByIdAndDelete(payload.taskId),
-      ]);
-
-      io.to(workspaceId).emit('task:deleted', { taskId: payload.taskId });
+      io.to(result.data.workspaceId).emit('task:deleted', { taskId: payload.taskId });
 
       ack({ success: true, data: undefined });
     } catch (err) {
@@ -133,3 +94,4 @@ export function registerTaskHandlers(io: IO, socket: Soc): void {
     }
   });
 }
+

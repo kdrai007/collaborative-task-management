@@ -11,7 +11,7 @@ export async function authRoutes(fastify: FastifyInstance): Promise<void> {
 
   fastify.post('/register', authRateLimit, register);
   fastify.post('/login', authRateLimit, login);
-  fastify.post('/logout', logout);  // No auth guard — clearing an expired session is valid
+  fastify.post('/logout', { preHandler: [fastify.authenticate] }, logout);
 
   // Protected — must be logged in to get own user info
   fastify.get('/me', { preHandler: [fastify.authenticate] }, me);

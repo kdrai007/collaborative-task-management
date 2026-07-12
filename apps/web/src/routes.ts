@@ -1,29 +1,9 @@
-import { createElement, lazy } from 'react';
+import { createElement } from 'react';
 import { redirect } from 'react-router';
 import { queryClient } from './lib/queryClient';
 import { authApi } from './lib/api';
 import { RootLayout, RouteError } from './layouts/RootLayout';
 import type { RouteMeta } from './types/route';
-
-// ---------------------------------------------------------------------------
-// Lazy-loaded page components — each route gets its own JS chunk
-// ---------------------------------------------------------------------------
-const Landing = lazy(() => import('./pages/Landing').then((m) => ({ default: m.Landing })));
-const Login = lazy(() => import('./pages/Login').then((m) => ({ default: m.Login })));
-const Signup = lazy(() => import('./pages/Signup').then((m) => ({ default: m.Signup })));
-const DashboardLayout = lazy(() =>
-  import('./layouts/DashboardLayout').then((m) => ({ default: m.DashboardLayout })),
-);
-const Home = lazy(() => import('./pages/Home').then((m) => ({ default: m.Home })));
-const Projects = lazy(() => import('./pages/Projects').then((m) => ({ default: m.Projects })));
-const Workspaces = lazy(() => import('./pages/Workspaces').then((m) => ({ default: m.Workspaces })));
-const NotFound = lazy(() => import('./pages/NotFound').then((m) => ({ default: m.NotFound })));
-
-// ---------------------------------------------------------------------------
-// Shorthand — createElement without JSX keeps this file as plain .ts
-// so Vite's React plugin never touches it (no Fast Refresh warnings).
-// ---------------------------------------------------------------------------
-const el = createElement;
 
 // ---------------------------------------------------------------------------
 // Loaders — closed over the singleton queryClient
@@ -53,16 +33,17 @@ const guestLoader = async () => {
 };
 
 // ---------------------------------------------------------------------------
-// Route tree
+// Route tree — leveraging React Router v7 native lazy routing to parallelize
+// loading of JS chunks and execution of route loaders.
 // ---------------------------------------------------------------------------
 export const routes = [
   {
-    element: el(RootLayout),
-    errorElement: el(RouteError),
+    element: createElement(RootLayout),
+    errorElement: createElement(RouteError),
     children: [
       {
         path: '/',
-        element: el(Landing),
+        lazy: () => import('./pages/Landing').then((m) => ({ Component: m.Landing })),
         handle: {
           title: 'Fluid Studio — Where ideas flow without friction',
           description:
@@ -72,7 +53,7 @@ export const routes = [
       {
         path: '/login',
         loader: guestLoader,
-        element: el(Login),
+        lazy: () => import('./pages/Login').then((m) => ({ Component: m.Login })),
         handle: {
           title: 'Sign in — Fluid Studio',
           description: 'Sign in to your Fluid Studio workspace.',
@@ -81,7 +62,7 @@ export const routes = [
       {
         path: '/signup',
         loader: guestLoader,
-        element: el(Signup),
+        lazy: () => import('./pages/Signup').then((m) => ({ Component: m.Signup })),
         handle: {
           title: 'Get started — Fluid Studio',
           description: 'Create your Fluid Studio account and start collaborating in minutes.',
@@ -92,11 +73,11 @@ export const routes = [
       {
         path: '/dashboard',
         loader: authLoader,
-        element: el(DashboardLayout),
+        lazy: () => import('./layouts/DashboardLayout').then((m) => ({ Component: m.DashboardLayout })),
         children: [
           {
             index: true,
-            element: el(Home),
+            lazy: () => import('./pages/Home').then((m) => ({ Component: m.Home })),
             handle: {
               title: 'Home — Fluid Studio',
               description: 'Your collaborative workspace overview.',
@@ -104,7 +85,7 @@ export const routes = [
           },
           {
             path: 'projects',
-            element: el(Projects),
+            lazy: () => import('./pages/Projects').then((m) => ({ Component: m.Projects })),
             handle: {
               title: 'Projects — Fluid Studio',
               description: 'Manage your boards and tasks.',
@@ -112,7 +93,7 @@ export const routes = [
           },
           {
             path: 'workspaces',
-            element: el(Workspaces),
+            lazy: () => import('./pages/Workspaces').then((m) => ({ Component: m.Workspaces })),
             handle: {
               title: 'Workspaces — Fluid Studio',
               description: 'Manage your environments.',
@@ -124,7 +105,7 @@ export const routes = [
       // 404 catch-all — must be last
       {
         path: '*',
-        element: el(NotFound),
+        lazy: () => import('./pages/NotFound').then((m) => ({ Component: m.NotFound })),
         handle: {
           title: '404 — Page not found | Fluid Studio',
         } satisfies RouteMeta,
@@ -132,3 +113,4 @@ export const routes = [
     ],
   },
 ];
+

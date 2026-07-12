@@ -28,7 +28,7 @@ export default function BoardColumn({
           </span>
         </div>
         {showAddButton && (
-          <button className="text-on-surface-variant hover:text-primary transition-colors">
+          <button className="text-on-surface-variant hover:text-primary transition-colors cursor-pointer">
             <Plus />
           </button>
         )}

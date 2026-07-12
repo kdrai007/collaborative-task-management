@@ -92,5 +92,5 @@ If a container requires a border for accessibility (e.g., in Dark Mode), use a *
 
 ### Don't
 *   **Don't** use 1px solid dividers (e.g., `<hr>`). Use a `0.35rem` gap or a tonal shift instead.
-*   **Don't** use pure black (#000) for Dark Mode. Use `on_background` (#0b1c30) for text to maintain a soft, navy-charcoal sophistication.
+*   **Don't** use pure black (#000) for Dark Mode. Use `surface` (#0b1c30) for the background to maintain a soft, navy-charcoal sophistication, and ensure elevated elements like cards become progressively lighter.
 *   **Don't** use "Drop Shadows" on flat buttons. Only use shadows for elements that truly "hover" over the main canvas.
